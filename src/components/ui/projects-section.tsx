@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // ============================================================================
 // CONFIGURATION & CONTENT CONSTANTS
@@ -190,6 +191,7 @@ const ProjectsSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -242,7 +244,7 @@ const ProjectsSection: React.FC = () => {
       />
 
       {/* Main content */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-8 lg:px-16 py-12 lg:py-16">
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-8 lg:px-16 py-12 md:py-16 lg:py-16">
         <div className="max-w-7xl mx-auto w-full">
           {/* Section header */}
           <div
@@ -276,6 +278,25 @@ const ProjectsSection: React.FC = () => {
                 isInView={isInView}
               />
             ))}
+          </div>
+
+          {/* CTA — Explore More Projects */}
+          <div
+            className="projects-cta-wrapper"
+            style={{
+              opacity: isInView ? 1 : 0,
+              transform: isInView ? 'translateY(0)' : 'translateY(24px)',
+              transition: `all 0.8s ${ANIMATION_CONFIG.easing} 0.4s`,
+            }}
+          >
+            <button className="projects-cta-btn" onClick={() => navigate('/projects')}>
+              <span>EXPLORE ALL PROJECTS</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+              <div className="projects-cta-glow" />
+            </button>
           </div>
         </div>
       </div>
@@ -382,6 +403,22 @@ const ProjectStyles = () => (
       font-weight: 400;
       max-width: 700px;
       margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .projects-header {
+        margin-bottom: 1.5rem;
+      }
+      .projects-label {
+        margin-bottom: 1rem;
+        font-size: 0.65rem;
+      }
+      .projects-heading {
+        margin-bottom: 1rem;
+      }
+      .projects-subtitle {
+        font-size: 0.8rem;
+      }
     }
 
     /* ====================================================================
@@ -701,6 +738,80 @@ const ProjectStyles = () => (
       border-radius: 9999px;
       background: radial-gradient(circle, rgba(255, 60, 0, 0.05) 0%, transparent 70%);
       pointer-events: none;
+    }
+
+    /* ====================================================================
+       CTA BUTTON — Explore More Projects
+       ==================================================================== */
+
+    .projects-cta-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .projects-cta-wrapper {
+        margin-top: 1.5rem;
+      }
+    }
+
+    .projects-cta-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255, 60, 0, 0.35);
+      background: rgba(255, 60, 0, 0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: ${COLOR_CONFIG.accent};
+      font-family: 'Syncopate', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 44px;
+    }
+
+    .projects-cta-btn:hover {
+      background: rgba(255, 60, 0, 0.12);
+      border-color: rgba(255, 60, 0, 0.6);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(255, 60, 0, 0.15);
+    }
+
+    .projects-cta-btn:hover svg {
+      transform: translateX(3px);
+    }
+
+    .projects-cta-btn svg {
+      transition: transform 0.3s ease;
+    }
+
+    .projects-cta-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 60, 0, 0.2) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .projects-cta-btn:hover .projects-cta-glow {
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      .projects-cta-btn {
+        padding: 0.65rem 1.5rem;
+        font-size: 0.6rem;
+      }
     }
 
     /* ====================================================================
