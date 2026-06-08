@@ -43,9 +43,9 @@ const TikTokIcon = () => (
 );
 
 const SOCIALS = [
-  { label: 'Instagram', href: 'https://instagram.com', icon: <InstagramIcon /> },
-  { label: 'X', href: 'https://x.com', icon: <XIcon /> },
-  { label: 'TikTok', href: 'https://tiktok.com', icon: <TikTokIcon /> },
+  { label: 'Instagram', href: 'https://www.instagram.com/c4lder_/', icon: <InstagramIcon /> },
+  { label: 'X', href: 'https://x.com/lowbat_broo/', icon: <XIcon /> },
+  { label: 'TikTok', href: 'https://tiktok.com/gknlinisiapa_/', icon: <TikTokIcon /> },
 ];
 
 // ============================================================================
