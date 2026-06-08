@@ -355,10 +355,9 @@ const ProjectsPage: React.FC = () => {
         .pp-container {
           position: relative;
           z-index: 10;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 2rem 4rem;
           width: 100%;
+          max-width: none;
+          padding: 0 3rem 4rem;
           box-sizing: border-box;
         }
 
@@ -373,8 +372,8 @@ const ProjectsPage: React.FC = () => {
         /* Projects grid */
         .pp-grid {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.25rem;
         }
 
         @media (min-width: 640px) {
