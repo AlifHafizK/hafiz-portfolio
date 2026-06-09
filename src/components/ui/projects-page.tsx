@@ -134,7 +134,7 @@ const ProjectDetailCard: React.FC<ProjectDetailCardProps> = ({ project, index, i
     >
       <div className="pp-card-glow" />
 
-      {/* Image */}
+      {/* Image with responsive aspect ratio */}
       <div className="pp-card-image-wrap">
         <div
           className="pp-card-image"
@@ -156,6 +156,7 @@ const ProjectDetailCard: React.FC<ProjectDetailCardProps> = ({ project, index, i
           ))}
         </div>
 
+        {/* Touch-friendly links (44px min height) */}
         <div className="pp-card-links">
           <a href={project.github} className="pp-card-link" onClick={(e) => e.preventDefault()}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -208,28 +209,47 @@ const ProjectsPage: React.FC = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap');
 
+        /* ========================================
+           GLOBAL BOX MODEL - Prevent overflow
+           ======================================== */
+        .pp-root *,
+        .pp-root *::before,
+        .pp-root *::after {
+          box-sizing: border-box;
+        }
+
+        /* ========================================
+           ROOT VARIABLES
+           ======================================== */
         :root {
           --bg: #0a0a0a;
           --silver: #e0e0e0;
           --accent: #ff3c00;
         }
 
+        /* ========================================
+           PAGE ROOT - Prevent horizontal overflow
+           ======================================== */
         .pp-root {
           background-color: var(--bg);
           color: var(--silver);
           font-family: 'Syncopate', sans-serif;
-          overflow-x: hidden;
+          overflow-x: hidden; /* Prevent horizontal scroll */
           width: 100%;
+          max-width: 100vw; /* Never exceed viewport width */
           min-height: 100vh;
           display: flex;
           flex-direction: column;
           position: relative;
         }
 
-        /* Background layers */
+        /* ========================================
+           FIXED BACKGROUND LAYERS - Constrained to viewport
+           ======================================== */
         .pp-bg-glow {
           position: fixed;
           inset: 0;
+          max-width: 100vw; /* Never exceed viewport */
           pointer-events: none;
           background-image:
             radial-gradient(circle at 50% 10%, rgba(255, 60, 0, 0.06) 0%, transparent 50%),
@@ -240,6 +260,7 @@ const ProjectsPage: React.FC = () => {
         .pp-grid-overlay {
           position: fixed;
           inset: 0;
+          max-width: 100vw; /* Never exceed viewport */
           pointer-events: none;
           background-image:
             linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
@@ -251,14 +272,16 @@ const ProjectsPage: React.FC = () => {
 
         .pp-grain {
           position: fixed;
-          top: 0; left: 0; width: 100%; height: 100%;
+          top: 0; left: 0; width: 100%; max-width: 100vw; height: 100%;
           pointer-events: none;
           z-index: 100;
           opacity: 0.15;
           filter: url(#ppGrain);
         }
 
-        /* Back button */
+        /* ========================================
+           BACK BUTTON - Touch-friendly (44px)
+           ======================================== */
         .pp-back-btn {
           position: fixed;
           top: 1.5rem;
@@ -282,7 +305,7 @@ const ProjectsPage: React.FC = () => {
           cursor: pointer;
           text-decoration: none;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          min-height: 44px;
+          min-height: 44px; /* Touch target size */
         }
 
         .pp-back-btn:hover {
@@ -293,98 +316,147 @@ const ProjectsPage: React.FC = () => {
 
         .pp-back-btn svg {
           transition: transform 0.3s ease;
+          flex-shrink: 0;
         }
 
         .pp-back-btn:hover svg {
           transform: translateX(-3px);
         }
 
+        /* Mobile: Smaller positioning and padding */
         @media (max-width: 640px) {
           .pp-back-btn {
-            top: 1rem;
-            left: 1rem;
-            padding: 0.5rem 1rem;
-            font-size: 0.55rem;
+            top: 0.75rem;
+            left: 0.75rem;
+            padding: 0.5rem 0.85rem;
+            font-size: 0.5rem;
+            gap: 0.35rem;
+          }
+          .pp-back-btn svg {
+            width: 12px;
+            height: 12px;
           }
         }
 
-        /* Hero header */
+        /* ========================================
+           HERO HEADER - Responsive typography
+           ======================================== */
         .pp-hero {
           position: relative;
           z-index: 10;
-          padding: 8rem 2rem 3rem;
+          padding: 7rem 1rem 2rem; /* Mobile-first padding */
           text-align: center;
-        }
-
-        @media (min-width: 640px) {
-          .pp-hero { padding: 8rem 2.5rem 3.5rem; }
-        }
-
-        @media (min-width: 1024px) {
-          .pp-hero { padding: 8rem 3rem 4rem; }
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .pp-hero-label {
-          font-size: 0.75rem;
+          font-size: clamp(0.6rem, 2vw, 0.75rem); /* Responsive font size */
           font-weight: 700;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.12em;
           color: var(--accent);
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           text-transform: uppercase;
         }
 
         .pp-hero-heading {
-          font-size: clamp(1.875rem, 8vw, 3.75rem);
+          font-size: clamp(1.5rem, 7vw, 3.75rem); /* Scale with viewport */
           font-weight: 700;
           line-height: 1.1;
           letter-spacing: -0.02em;
           color: white;
-          margin: 0 0 1.5rem;
+          margin: 0 0 1rem;
+          word-wrap: break-word; /* Prevent overflow */
+          overflow-wrap: break-word;
         }
 
         .pp-hero-subtitle {
-          font-size: clamp(0.875rem, 2vw, 1rem);
-          line-height: 1.8;
+          font-size: clamp(0.75rem, 1.8vw, 1rem); /* Readable on all sizes */
+          line-height: 1.7;
           color: var(--silver);
           font-weight: 400;
-          max-width: 700px;
+          max-width: 90%; /* Mobile: use most of width */
           margin: 0 auto;
         }
 
-        /* Content container */
+        /* Tablet and desktop: More generous padding */
+        @media (min-width: 641px) {
+          .pp-hero {
+            padding: 7rem 1.5rem 2.5rem;
+          }
+          .pp-hero-subtitle {
+            max-width: 600px;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .pp-hero {
+            padding: 8rem 2rem 3.5rem;
+          }
+          .pp-hero-subtitle {
+            max-width: 700px;
+          }
+        }
+
+        /* ========================================
+           CONTENT CONTAINER - Full width with padding
+           ======================================== */
         .pp-container {
           position: relative;
           z-index: 10;
           width: 100%;
-          max-width: none;
-          padding: 0 3rem 4rem;
+          max-width: min(1200px, 100%); /* Never exceed viewport */
+          margin: 0 auto;
+          padding: 0 1rem 3rem; /* Mobile padding */
           box-sizing: border-box;
+          overflow-x: hidden; /* Prevent horizontal overflow */
         }
 
-        @media (min-width: 640px) {
-          .pp-container { padding: 0 2.5rem 4rem; }
+        /* Tablet: More padding */
+        @media (min-width: 641px) {
+          .pp-container {
+            padding: 0 1.5rem 3.5rem;
+          }
         }
 
+        /* Desktop: Generous padding */
         @media (min-width: 1024px) {
-          .pp-container { padding: 0 3rem 5rem; }
+          .pp-container {
+            padding: 0 2rem 4rem;
+          }
         }
 
-        /* Projects grid */
+        /* ========================================
+           PROJECTS GRID - Responsive columns
+           ======================================== */
         .pp-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.25rem;
+          grid-template-columns: 1fr; /* Mobile: single column */
+          gap: 1rem; /* Mobile: tight gaps */
+          width: 100%;
+          max-width: 100%; /* Never exceed container */
+          overflow-x: hidden; /* Prevent horizontal overflow */
         }
 
-        @media (min-width: 640px) {
-          .pp-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        /* Tablet: 2 columns */
+        @media (min-width: 641px) {
+          .pp-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+          }
         }
 
-        @media (min-width: 1024px) {
-          .pp-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+        /* Desktop: 3 columns */
+        @media (min-width: 1025px) {
+          .pp-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+          }
         }
 
-        /* Card */
+        /* ========================================
+           PROJECT CARD - Glassmorphism
+           ======================================== */
         .pp-card {
           position: relative;
           border-radius: 0.75rem;
@@ -395,12 +467,25 @@ const ProjectsPage: React.FC = () => {
           overflow: hidden;
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
           cursor: default;
+          /* Ensure cards don't overflow */
+          min-width: 0;
+          box-sizing: border-box;
         }
 
         .pp-card:hover {
           border-color: ${COLOR_CONFIG.accentBorderHover};
           transform: translateY(-6px);
           box-shadow: 0 12px 40px rgba(255, 60, 0, 0.08);
+        }
+
+        /* Disable hover transform on touch devices */
+        @media (hover: none) {
+          .pp-card:hover {
+            transform: none;
+          }
+          .pp-card:active {
+            border-color: ${COLOR_CONFIG.accentBorderHover};
+          }
         }
 
         .pp-card-glow {
@@ -417,11 +502,13 @@ const ProjectsPage: React.FC = () => {
           opacity: 1;
         }
 
-        /* Image */
+        /* ========================================
+           CARD IMAGE - Responsive aspect ratio
+           ======================================== */
         .pp-card-image-wrap {
           position: relative;
           width: 100%;
-          padding-top: 56.25%;
+          padding-top: 56.25%; /* 16:9 aspect ratio */
           overflow: hidden;
         }
 
@@ -445,37 +532,53 @@ const ProjectsPage: React.FC = () => {
           background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 10, 0.7) 100%);
         }
 
+        /* Status badge - responsive positioning */
         .pp-card-status {
           position: absolute;
-          top: 0.75rem;
-          right: 0.75rem;
-          padding: 0.25rem 0.6rem;
+          top: 0.6rem;
+          right: 0.6rem;
+          padding: 0.2rem 0.5rem;
           border-radius: 9999px;
-          font-size: 0.55rem;
+          font-size: clamp(0.45rem, 1.2vw, 0.55rem);
           font-weight: 700;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
           border: 1px solid rgba(255, 60, 0, 0.35);
           background: rgba(255, 60, 0, 0.1);
           backdrop-filter: blur(8px);
           color: var(--accent);
+          white-space: nowrap;
         }
 
-        /* Body */
+        /* Mobile: Smaller status badge */
+        @media (max-width: 640px) {
+          .pp-card-status {
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.15rem 0.4rem;
+          }
+        }
+
+        /* ========================================
+           CARD BODY - Responsive padding
+           ======================================== */
         .pp-card-body {
           position: relative;
           z-index: 2;
-          padding: 1.25rem;
+          padding: 1rem; /* Mobile padding */
         }
 
-        @media (max-width: 640px) {
-          .pp-card-body { padding: 1rem; }
+        /* Desktop: More padding */
+        @media (min-width: 1025px) {
+          .pp-card-body {
+            padding: 1.25rem;
+          }
         }
 
         .pp-card-category {
-          font-size: 0.55rem;
+          font-size: clamp(0.5rem, 1.2vw, 0.55rem);
           font-weight: 700;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.1em;
           color: var(--accent);
           text-transform: uppercase;
           opacity: 0.7;
@@ -483,45 +586,62 @@ const ProjectsPage: React.FC = () => {
 
         .pp-card-title {
           font-family: 'Syncopate', sans-serif;
-          font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+          font-size: clamp(0.75rem, 2vw, 0.95rem);
           font-weight: 700;
           letter-spacing: 0.02em;
           color: white;
-          margin: 0.4rem 0 0.65rem;
+          margin: 0.35rem 0 0.5rem;
+          line-height: 1.2;
+          word-wrap: break-word;
         }
 
         .pp-card:hover .pp-card-title {
           color: var(--accent);
         }
 
+        /* Description - readable on all sizes */
         .pp-card-desc {
-          font-size: clamp(0.75rem, 1.2vw, 0.85rem);
-          line-height: 1.7;
+          font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+          line-height: 1.6;
           color: var(--silver);
           font-weight: 400;
-          margin: 0 0 1rem;
+          margin: 0 0 0.75rem;
+          display: -webkit-box;
+          -webkit-line-clamp: 4; /* Limit to 4 lines on mobile */
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
+        /* Desktop: Show full description */
+        @media (min-width: 1025px) {
+          .pp-card-desc {
+            display: block;
+            -webkit-line-clamp: unset;
+          }
+        }
+
+        /* Tech pills - responsive sizing */
         .pp-card-techs {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.4rem;
-          margin-bottom: 1rem;
+          gap: 0.35rem;
+          margin-bottom: 0.75rem;
         }
 
         .pp-card-tech {
-          padding: 0.25rem 0.6rem;
+          padding: 0.2rem 0.5rem;
           border-radius: 9999px;
-          font-size: clamp(0.6rem, 1vw, 0.7rem);
+          font-size: clamp(0.55rem, 1.2vw, 0.7rem);
           border: 1px solid rgba(255, 255, 255, 0.15);
           background: rgba(255, 255, 255, 0.04);
           backdrop-filter: blur(8px);
           font-family: 'Syncopate', sans-serif;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.04em;
           color: var(--silver);
           display: inline-block;
           font-weight: 500;
           transition: border-color 0.3s ease, background 0.3s ease;
+          white-space: nowrap;
         }
 
         .pp-card:hover .pp-card-tech {
@@ -529,29 +649,38 @@ const ProjectsPage: React.FC = () => {
           background: rgba(255, 60, 0, 0.05);
         }
 
-        /* Links */
+        /* ========================================
+           CARD LINKS - Touch-friendly (44px min height)
+           ======================================== */
         .pp-card-links {
           display: flex;
-          gap: 0.75rem;
+          flex-wrap: wrap; /* Allow wrapping on small screens */
+          gap: 0.5rem;
         }
 
         .pp-card-link {
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
-          padding: 0.4rem 0.75rem;
+          justify-content: center;
+          gap: 0.35rem;
+          padding: 0.5rem 0.7rem;
           border-radius: 0.35rem;
           border: 1px solid rgba(255, 255, 255, 0.12);
           background: rgba(255, 255, 255, 0.03);
           color: var(--silver);
           font-family: 'Syncopate', sans-serif;
-          font-size: 0.55rem;
+          font-size: clamp(0.5rem, 1.2vw, 0.55rem);
           font-weight: 700;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
           text-decoration: none;
           transition: all 0.3s ease;
-          min-height: 36px;
+          min-height: 44px; /* Touch target size */
+          white-space: nowrap;
+        }
+
+        .pp-card-link svg {
+          flex-shrink: 0;
         }
 
         .pp-card-link:hover {
@@ -571,7 +700,21 @@ const ProjectsPage: React.FC = () => {
           color: var(--accent);
         }
 
-        /* Accent line */
+        /* Mobile: Compact links */
+        @media (max-width: 400px) {
+          .pp-card-links {
+            flex-direction: column;
+            gap: 0.4rem;
+          }
+          .pp-card-link {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+
+        /* ========================================
+           ACCENT LINE - Hover animation
+           ======================================== */
         .pp-card-accent-line {
           position: absolute;
           bottom: 0;
@@ -588,8 +731,22 @@ const ProjectsPage: React.FC = () => {
           width: 100%;
         }
 
+        /* Active state via touch for mobile */
+        .pp-card:active .pp-card-accent-line {
+          width: 100%;
+        }
+
+        /* ========================================
+           ACCESSIBILITY - Reduced motion
+           ======================================== */
         @media (prefers-reduced-motion: reduce) {
-          * { animation: none !important; transition: none !important; }
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
         }
       `}</style>
 
