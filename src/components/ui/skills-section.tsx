@@ -18,6 +18,7 @@ const HARD_SKILLS = [
     description:
       'Experienced in object-oriented programming, data structures, algorithms, and building scalable desktop applications. Comfortable creating clean, maintainable, and efficient code using Java.',
     technologies: ['Java', 'OOP', 'Collections', 'Swing', 'MySQL'],
+    sertificate: 'https://drive.google.com/file/d/1KdADBQ0vfXWEg6I4BoOy41LDeHaEYmrs/view?usp=drive_link',
   },
   {
     logo: 'javascript',

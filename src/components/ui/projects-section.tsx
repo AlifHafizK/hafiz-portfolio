@@ -21,7 +21,7 @@ const PROJECTS = [
       'A calculator application built using Java with clean architecture and object-oriented programming principles.',
     technologies: ['Java', 'Swing', 'OOP'],
     image:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200',
+      '/images/java-calc.png',
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const PROJECTS = [
       'A cashier management application for handling transactions and sales efficiently.',
     technologies: ['Java', 'MySQL', 'Swing'],
     image:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200',
+      '/images/kasir.png',
   },
   {
     id: 3,
@@ -41,27 +41,27 @@ const PROJECTS = [
       'Responsive news platform with organized categories and modern reading experience.',
     technologies: ['HTML', 'CSS', 'JavaScript'],
     image:
-      'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1200',
+      '/images/news.png',
   },
   {
     id: 4,
-    title: 'Application Loading Screen',
+    title: 'Website Loading Screen',
     category: 'UI Development',
     description:
       'Custom loading screen focused on user experience and visual feedback.',
     technologies: ['HTML', 'CSS', 'JavaScript'],
     image:
-      'https://images.unsplash.com/photo-1550751827-4bd374c3f232?auto=format&fit=crop&q=80&w=1200',
+      '/images/loading-screen.png',
   },
   {
     id: 5,
-    title: 'Website Login Page',
+    title: 'Application Login Page',
     category: 'Frontend Development',
     description:
       'Responsive login interface with validation and modern UX patterns.',
     technologies: ['HTML', 'CSS', 'JavaScript'],
     image:
-      'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=1200',
+      '/images/login-page.png',
   },
   {
     id: 6,
@@ -71,7 +71,9 @@ const PROJECTS = [
       'Personal portfolio showcasing skills, projects, and experience.',
     technologies: ['React', 'TypeScript', 'TailwindCSS'],
     image:
-      'https://images.unsplash.com/photo-1467233604571-6b68b31c55ac?auto=format&fit=crop&q=80&w=1200',
+      '/images/portfolio.png',
+    github: 'https://github.com/AlifHafizK/hafiz-portfolio',
+    demo: 'https://hafizz.vercel.app',
   },
   {
     id: 7,
@@ -81,7 +83,7 @@ const PROJECTS = [
       'E-commerce website with product catalog and database integration.',
     technologies: ['PHP', 'MySQL', 'JavaScript'],
     image:
-      'https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&q=80&w=1200',
+      '/images/shoes.png',
   },
 ];
 

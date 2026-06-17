@@ -30,7 +30,7 @@ const PROJECTS = [
     description:
       'A calculator application built using Java with clean architecture and object-oriented programming principles. Features a clean Swing UI, full arithmetic operations, and modular code organization.',
     technologies: ['Java', 'Swing', 'OOP'],
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/java-calc.png',
     github: '#',
     demo: '#',
   },
@@ -42,7 +42,7 @@ const PROJECTS = [
     description:
       'A cashier management application for handling transactions and sales efficiently. Includes product catalog, transaction logging, and MySQL database integration for persistent data storage.',
     technologies: ['Java', 'MySQL', 'Swing'],
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/kasir.png',
     github: '#',
     demo: '#',
   },
@@ -54,31 +54,31 @@ const PROJECTS = [
     description:
       'Responsive news platform with organized categories and modern reading experience. Features dynamic content rendering, category filtering, and a mobile-first responsive layout.',
     technologies: ['HTML', 'CSS', 'JavaScript'],
-    image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/news.png',
     github: '#',
     demo: '#',
   },
   {
     id: 4,
-    title: 'Application Loading Screen',
+    title: 'Website Loading Screen',
     category: 'UI Development',
     status: 'Completed',
     description:
       'Custom loading screen focused on user experience and visual feedback. Implements smooth CSS animations, progress indicators, and a polished transition into the main application.',
     technologies: ['HTML', 'CSS', 'JavaScript'],
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f232?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/loading-screen.png',
     github: '#',
     demo: '#',
   },
   {
     id: 5,
-    title: 'Website Login Page',
+    title: 'Application Login Page',
     category: 'Frontend Development',
     status: 'Completed',
     description:
       'Responsive login interface with validation and modern UX patterns. Includes real-time form validation, password visibility toggle, and accessible error messaging.',
     technologies: ['HTML', 'CSS', 'JavaScript'],
-    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/login-page.png',
     github: '#',
     demo: '#',
   },
@@ -90,9 +90,9 @@ const PROJECTS = [
     description:
       'Personal portfolio showcasing skills, projects, and experience. Built with React, TypeScript, and TailwindCSS featuring dark futuristic design, smooth animations, and responsive layout.',
     technologies: ['React', 'TypeScript', 'TailwindCSS'],
-    image: 'https://images.unsplash.com/photo-1467233604571-6b68b31c55ac?auto=format&fit=crop&q=80&w=1200',
-    github: '#',
-    demo: '#',
+    image: '/images/portfolio.png',
+    github: 'https://github.com/AlifHafizK/hafiz-portfolio',
+    demo: 'https://hafizz.vercel.app',
   },
   {
     id: 7,
@@ -102,7 +102,7 @@ const PROJECTS = [
     description:
       'E-commerce website with product catalog and database integration. Features product browsing, shopping cart functionality, and a PHP/MySQL backend for data management.',
     technologies: ['PHP', 'MySQL', 'JavaScript'],
-    image: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/shoes.png',
     github: '#',
     demo: '#',
   },
